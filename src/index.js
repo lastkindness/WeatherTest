@@ -1,8 +1,7 @@
-// import React from 'react'
 import React, {Component} from 'react';
 import {render} from 'react-dom';
-import WeekContainer from './WeekContainer';
-import DayContainer from './DayContainer';
+import WeekContainer from './components/WeekContainer';
+import DayContainer from './components/DayContainer';
 import "./App.css";
 
 class WeatherDisplay extends Component {
@@ -26,25 +25,27 @@ class WeatherDisplay extends Component {
         const weatherData = this.state.weatherData;
         const city = weatherData.city;
         let name = "";
-        for (var key in city) {
-            if(key=="name") {
+        for (let key in city) {
+            if(key==="name") {
                 name = city[key];
             }
         }
         return (
             <div className="container">
                 <div className="day-container">
-                    <DayContainer/>
+                    <DayContainer api={weatherData}/>
                 </div>
                 <div className="week-container">
                     <h1 className="main-title">Прогноз погоды на 5 дней</h1>
                     <h2 className="city-title">{name}</h2>
-                    <WeekContainer/>
+                    <div className="cards">
+                        <WeekContainer api={weatherData}/>
+                    </div>
                 </div>
             </div>
         )
-    }
-}
+    };
+};
 
 
 render(<WeatherDisplay/>, document.getElementById('root'))
